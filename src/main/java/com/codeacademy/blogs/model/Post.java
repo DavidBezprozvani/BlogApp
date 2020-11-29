@@ -9,13 +9,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
 
-
-
 @Getter
 @Setter
 @Entity
 @Table
-public class Blog {
+public class Post {
 
     @javax.persistence.Id
     @Id
@@ -39,6 +37,5 @@ public class Blog {
     @NotBlank
     @Column
     private String username;
-
 
 }

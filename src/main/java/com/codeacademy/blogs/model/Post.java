@@ -2,7 +2,7 @@ package com.codeacademy.blogs.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,26 +12,26 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
-@Table
+@ToString
+@Table(name = "Posts")
 public class Post {
 
-    @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Column
+    @Column(name = "title")
     private String title;
 
     @NotEmpty
-    @Column
-    private String content;
+    @Column(name = "body")
+    private String body;
 
-    @Column
+    @Column(name = "created_on")
     private Instant createdOn;
 
-    @Column
+    @Column(name = "updated_on")
     private Instant updatedOn;
 
     @NotBlank

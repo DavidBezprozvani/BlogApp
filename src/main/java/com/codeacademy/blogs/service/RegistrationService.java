@@ -3,11 +3,13 @@ package com.codeacademy.blogs.service;
 import com.codeacademy.blogs.model.User;
 import com.codeacademy.blogs.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import javax.validation.Valid;
 
+@Service
 public class RegistrationService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;

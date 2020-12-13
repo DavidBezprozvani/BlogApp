@@ -9,8 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -64,7 +65,11 @@ public class UserService implements UserDetailsService {
     }
 
     // remove user for admin
-
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable long id) {
+        userRepository.deleteById(id);
+        return "redirect:/user";
+    }
 
 
 

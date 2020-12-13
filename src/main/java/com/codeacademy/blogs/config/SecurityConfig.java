@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("user")
                 .passwordParameter("password")
                 .failureUrl("/login?error")
-                .defaultSuccessUrl("/index")
+                .defaultSuccessUrl("/public/index")
                 .and()
                 .logout()
                 .logoutUrl("/logout");
@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity webSecurity)  {
-//        webSecurity.ignoring().antMatchers("/**"); // isjungia security
+        webSecurity.ignoring().antMatchers("/**"); // isjungia security
         webSecurity.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 

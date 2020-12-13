@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
+//    @Column(name = "comment_id")
     private Long id;
 
     @Column(name = "body", columnDefinition = "TEXT")
@@ -29,17 +29,23 @@ public class Comment {
     @CreationTimestamp
     private LocalDateTime createdOn;
 
-    @Column(name = "updated_on", nullable = false, updatable = false)
+    @Column(name = "updated_on", nullable = false, updatable = true)
     @CreationTimestamp
     private LocalDateTime updatedOn;
 
-//    @ManyToOne
-//    @JoinColumn(name = "post_id", referencedColumnName = "post_id", nullable = false)
-//    @NotNull
-//    private Post post;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-//    @NotNull
-//    private User user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable
+            (name = "Comments_Posts",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "comment_id")})
+    @NotNull
+    private Post post;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable
+            (name = "Comments_Users",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "comment_id")})
+    @NotNull
+    private User user;
 }

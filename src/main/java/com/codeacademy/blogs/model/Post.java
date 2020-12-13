@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -33,10 +34,11 @@ public class Post {
     private String body;
 
     @CreationTimestamp
-    @Column(name = "created_on")
+    @Column(name = "created_on", nullable = false, updatable = false)
     private LocalDateTime createdOn;
 
-    @Column(name = "updated_on")
+    @UpdateTimestamp
+    @Column(name = "updated_on", nullable = false, updatable = false)
     private LocalDateTime updatedOn;
 
     @NotBlank

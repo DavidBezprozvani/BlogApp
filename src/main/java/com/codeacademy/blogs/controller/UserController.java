@@ -1,6 +1,7 @@
 package com.codeacademy.blogs.controller;
 
 import com.codeacademy.blogs.model.User;
+import com.codeacademy.blogs.repository.UserRepository;
 import com.codeacademy.blogs.service.UserService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -12,11 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/public/user")
 public class UserController {
     //TODO make user controller
 
     private UserService userService;
+    private UserRepository userRepository;
 
     @GetMapping
     public String getAll(@PageableDefault(size = 5) Pageable pageable, Model model) {
@@ -61,17 +63,17 @@ public class UserController {
     }
 
 
-    //    @PostMapping
-//    public String createNewUser(@Valid User user,
+//    @PostMapping
+//    public String signUp(@Valid User user,
 //                                BindingResult bindingResult,
 //                                Model model) {
 //
-//        if (userService.findByEmail(user.getEmail()).isPresent()) {
+//        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
 //            bindingResult
 //                    .rejectValue("email", "error.user",
 //                            "There is already a user registered with the email provided");
 //        }
-//        if (userService.findByUsername(user.getUsername()).isPresent()) {
+//        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
 //            bindingResult
 //                    .rejectValue("username", "error.user",
 //                            "There is already a user registered with the username provided");
@@ -86,6 +88,6 @@ public class UserController {
 //            model.addAttribute("user", new User());
 //        }
 //
-//        return "/registration";
+//        return "**/registration";
 //    }
 }

@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <link rel="stylesheet" type="text/css" media="all"
       th:href="@{/static/css/global.css}" />
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
 <body>
 
-<h1>Please Log In</h1>
-<div th:if="${param.error}">Invalid username and password.</div>
-<div th:if="${param.logout}">You have been logged out.</div>
+<h1 th:text="#{login}">Login</h1>
+<div th:if="${param.error}">
+    <div class="alert alert-danger">Invalid username and password.</div>
+    </div>
+<div th:if="${param.logout}">
+    <div class="alert alert-info">You have been logged out.</div>
+</div>
 <form th:action="@{/login}" method="post">
     <div>
         <input type="text" name="user" placeholder="Username"/>
@@ -20,6 +23,7 @@
         <input type="password" name="password" placeholder="Password"/>
     </div>
     <input type="submit" value="Log in" />
+    <div th:replace="fragments/main :: footer"></div>
 </form>
 </body>
 </html>

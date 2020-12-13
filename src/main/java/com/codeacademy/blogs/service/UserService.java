@@ -36,10 +36,16 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
-    // Find by email
+    // Find by email // GAL NEREIKALINGI??
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
+
+    // Find by username // GAL NEREIKALINGI??
+    public User findByUsername(String email) {
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+    }
+
 
     // update user info
     public void updateUser(Long id, User newUser) {

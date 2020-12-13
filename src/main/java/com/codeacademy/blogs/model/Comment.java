@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -25,12 +26,12 @@ public class Comment {
     @NotEmpty(message = "*Please write something")
     private String body;
 
-    @Column(name = "created_on", nullable = false, updatable = false)
     @CreationTimestamp
+    @Column(name = "created_on", nullable = false, updatable = false)
     private LocalDateTime createdOn;
 
-    @Column(name = "updated_on", nullable = false, updatable = true)
-    @CreationTimestamp
+    @UpdateTimestamp
+    @Column(name = "updated_on", nullable = false, updatable = false)
     private LocalDateTime updatedOn;
 
     @ManyToOne(fetch = FetchType.EAGER)

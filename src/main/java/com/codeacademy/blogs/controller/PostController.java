@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/public/post")
 public class PostController {
     private PostRepository postRepository;
     //TODO make post controller

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vartotoju sąrašas</title>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/static/css/global.css}" />
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/main :: menu"></div>
+
+<h3> User page </h3>
+<div th:replace="fragments/main :: toolbar (url='/user/new', text='Pridėti naują vartotoją')"></div>
+
+<div th:replace="fragments/main :: footer"></div>
+
+</div>
+</body>
+</html>

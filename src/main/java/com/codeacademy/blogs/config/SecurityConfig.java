@@ -32,12 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/h2/**", "/login", "/", "/public/**").permitAll()
-                .antMatchers("/private/**")
-                .authenticated()
+                .antMatchers("/private/**").authenticated()
                 .anyRequest()
                 .authenticated()
-                .and()
-                .formLogin()
                 .and()
                 .formLogin()
                 .permitAll()
@@ -45,8 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .usernameParameter("user")
                 .passwordParameter("password")
-                .failureUrl("/login?error")
                 .defaultSuccessUrl("/public/index")
+                .failureUrl("/login?error")
                 .and()
                 .logout()
                 .logoutUrl("/logout");
@@ -58,16 +55,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity webSecurity)  {
-        webSecurity.ignoring().antMatchers("/**"); // isjungia security
+//        webSecurity.ignoring().antMatchers("/**"); // isjungia security
         webSecurity.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        webSecurity.ignoring().antMatchers("/error");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         // Custom user storage
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(encoder());
+//        auth.userDetailsService(userDetailsService)
+//                .passwordEncoder(encoder());
 
 //      // JDBC user storage
 ////        auth.jdbcAuthentication()
@@ -77,15 +75,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 ////                .authoritiesByUsernameQuery("SELECT username, roleName FROM Role WHERE username = ?");
 //
         // In memory user storage
-//                auth
-//                .inMemoryAuthentication()
-//                .withUser("user")
-//                .password(encoder().encode("user"))
-//                .roles("USER")
-//                .and()
-//                .withUser("admin")
-//                .password(encoder().encode("admin"))
-//                .roles("ADMIN");
+                auth
+                .inMemoryAuthentication()
+                .withUser("user")
+                .password(encoder().encode("user"))
+                .roles("USER")
+                .and()
+                .withUser("admin")
+                .password(encoder().encode("admin"))
+                .roles("ADMIN");
     }
 
     @Bean

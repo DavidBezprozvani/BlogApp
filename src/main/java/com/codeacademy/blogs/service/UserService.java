@@ -20,13 +20,19 @@ public class UserService implements UserDetailsService {
 
     //TODO: padaryti user service
 
+
+    public UserService(UserRepository userRepository, SecurityConfig securityConfig) {
+        this.userRepository = userRepository;
+        this.securityConfig = securityConfig;
+    }
+
     // get all users
     public Page<User> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
     // get user by id
-    public User getUserById(long id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
@@ -60,7 +66,12 @@ public class UserService implements UserDetailsService {
 
     // add user by admin
     public User addUser(User user) {
+        user.setUsername(user.getUsername());
         user.setPassword(securityConfig.encoder().encode(user.getPassword()));
+        user.setEmail(user.getEmail());
+        user.setFirstName(user.getFirstName());
+        user.setLastName(user.getLastName());
+        user.setAvatar(user.getAvatar());
         return userRepository.save(user);
     }
 
@@ -70,8 +81,4 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
         return "redirect:/user";
     }
-
-
-
-
 }

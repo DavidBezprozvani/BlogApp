@@ -1,14 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Vartotoju sąrašas</title>
+    <title>User List</title>
 
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/static/css/global.css}" />
@@ -17,11 +11,32 @@
 <body>
 <div th:replace="fragments/main :: menu"></div>
 
-<h3> User page </h3>
+<div th:replace="fragments/main :: menu"></div>
 <div th:replace="fragments/main :: toolbar (url='/user/new', text='Pridėti naują vartotoją')"></div>
+<div class="container">
+    <th:block th:if="${usersPage.empty}">
+        <p>Jūs neturite pridėtų vartotoju!</p>
+    </th:block>
+
+    <th:block th:if="${not usersPage.empty}">
+        <table class="table">
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Surname</th>
+            </tr>
+            <tr th:each="user : ${usersPage}">
+                <td th:text="${user.username}" />
+                <td th:text="${user.firstName}" />
+                <td th:text="${user.lastName}" />
+                <td><a th:href="@{/user/update/{id}(id=${user.id})}"><button class="btn btn-bg bg-secondary text-white">Koreguoti</button></a></td>
+                <td><a th:href="@{/user/{id}(id=${user.id})}"><button class="btn btn-bg bg-primary text-white">Profilis</button></a></td>
+            </tr>
+        </table>
+        <div th:include="fragments/main :: pagination" th:object="${usersPage}"></div>
+    </th:block>
 
 <div th:replace="fragments/main :: footer"></div>
-
 </div>
 </body>
 </html>

@@ -1,7 +1,6 @@
 package com.codeacademy.blogs.controller;
 
 import com.codeacademy.blogs.model.User;
-import com.codeacademy.blogs.repository.UserRepository;
 import com.codeacademy.blogs.service.UserService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -10,15 +9,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/private/user")
 public class UserController {
     //TODO make user controller
 
     private UserService userService;
-    private UserRepository userRepository;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public String getAll(@PageableDefault(size = 5) Pageable pageable, Model model) {
@@ -32,20 +32,20 @@ public class UserController {
         return "**/user-profile";
     }
 
-    @GetMapping("/registration")
-    public String getRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
-        return "**/registration";
-    }
-
-    @PostMapping
-    public String addNewUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            return "**/registration";
-        }
-        userService.addUser(user);
-        return "redirect:/user";
-    }
+//    @GetMapping("/registration")
+//    public String getRegistrationForm(Model model) {
+//        model.addAttribute("user", new User());
+//        return "**/registration";
+//    }
+//
+//    @PostMapping
+//    public String addNewUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+//        if(bindingResult.hasErrors()) {
+//            return "**/registration";
+//        }
+//        userService.addUser(user);
+//        return "redirect:/user";
+//    }
 
     @GetMapping("/update/{id}")
     public String getUpdateUserForm(Model model, @PathVariable long id) {
@@ -62,6 +62,8 @@ public class UserController {
         return "redirect:/user/" + id;
     }
 
+
+    //delete user
 
 //    @PostMapping
 //    public String signUp(@Valid User user,

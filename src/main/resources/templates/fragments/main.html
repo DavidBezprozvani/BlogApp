@@ -20,17 +20,17 @@
                 <a th:text="#{menu.home}" class="nav-link" href="/public/index">Home</a>
             </li>
             <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/post-list' ? 'active':''}">
-                <a th:text="#{menu.blogs}" class="nav-link" href="/post-list">Blogs</a>
+                <a th:text="#{menu.blogs}" class="nav-link" href="/public/post">Blogs</a>
             </li>
             <li class="nav-item" sec:authorize="hasRole('ADMIN')"
                 th:classappend="${#httpServletRequest.getRequestURI().contains('/user')  ? 'active':''}">
-                <a th:text="#{menu.user}" class="nav-link" href="/user">Users</a>
+                <a th:text="#{menu.user}" class="nav-link" href="/private/user">Users</a>
             </li>
             <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/about' ? 'active':''}">
-                <a th:text="#{menu.about}" class="nav-link" href="/about">About blogger</a>
+                <a th:text="#{menu.about}" class="nav-link" href="/public/about">About blogger</a>
             </li>
             <li class="nav-item" sec:authorize="hasRole('ADMIN')"
-                th:classappend="${#httpServletRequest.getRequestURI().contains('/user')  ? 'active':''}">
+                th:classappend="${#httpServletRequest.getRequestURI().contains('/h2')  ? 'active':''}">
                 <a th:text="H2" class="nav-link" href="/h2">H2 DB</a>
             </li>
         </ul>
@@ -43,7 +43,7 @@
 
         </span>
             <!--Only shows up if user is logged in-->
-            <button class="btn btn-outline-dark" type="submit" sec:authorize="isAuthenticated()" th:text="#{logout}">
+            <button class="btn btn-outline-dark" type="submit" sec:authorize="isAuthenticated()" th:text="#{logout}" th:action="@{/logout}">
                 Logout
             </button>
         </form>

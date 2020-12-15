@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>User List</title>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/static/css/global.css}" />
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
 </head>
 <body>
+<div th:replace="fragments/main :: menu"></div>
 
+<div th:replace="fragments/main :: menu"></div>
+<div th:replace="fragments/main :: toolbar (url='/post/new', text='Pridėti naują blogą')"></div>
+<div class="container">
+    <th:block th:if="${postsPage.empty}">
+        <p>Jūs neturite pridėtų blogų!</p>
+    </th:block>
+
+    <th:block th:if="${not postsPage.empty}">
+        <table class="table">
+            <tr>
+                <th>Username</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr th:each="post : ${postsPage}">
+                <td th:text="${post.title}}" />
+                <td><a th:href="@{/post/update/{id}(id=${post.id})}"><button class="btn btn-bg bg-secondary text-white">Koreguoti</button></a></td>
+                <td><a th:href="@{/post/{id}(id=${post.id})}"><button class="btn btn-bg bg-primary text-white">Profilis</button></a></td>
+            </tr>
+        </table>
+        <div th:include="fragments/main :: pagination" th:object="${postsPage}}"></div>
+    </th:block>
+
+    <div th:replace="fragments/main :: footer"></div>
+</div>
 </body>
 </html>

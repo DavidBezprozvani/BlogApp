@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -42,11 +44,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .usernameParameter("user")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/public/index")
+                .defaultSuccessUrl("/public/index", true)
                 .failureUrl("/login?error")
                 .and()
                 .logout()
-                .logoutUrl("/logout");
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/public/index");
 
         http.csrf().ignoringAntMatchers("/h2/**");
 
@@ -54,36 +57,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity webSecurity)  {
+    public void configure(WebSecurity webSecurity) {
 //        webSecurity.ignoring().antMatchers("/**"); // isjungia security
         webSecurity.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-        webSecurity.ignoring().antMatchers("/error");
+//        webSecurity.ignoring().antMatchers("/error");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         // Custom user storage
-//        auth.userDetailsService(userDetailsService)
-//                .passwordEncoder(encoder());
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(encoder());
 
 //      // JDBC user storage
-////        auth.jdbcAuthentication()
-////                .passwordEncoder(encoder())
-////                .dataSource(dataSource)
-////                .usersByUsernameQuery("SELECT username, password, TRUE as enabled FROM User WHERE username = ?")
-////                .authoritiesByUsernameQuery("SELECT username, roleName FROM Role WHERE username = ?");
+//        auth.jdbcAuthentication()
+//                .passwordEncoder(encoder())
+//                .dataSource(dataSource)
+//                .usersByUsernameQuery("SELECT username, password, TRUE as enabled FROM User WHERE username = ?")
+//                .authoritiesByUsernameQuery("SELECT u.username, r.role_name FROM Role r " +
+//                        " JOIN User_roles ur ON r.id = ur.role_id " +
+//                        " JOIN User u ON u.id = ur.user_id " +
+//                        " WHERE u.username = ?");
+
 //
         // In memory user storage
-                auth
-                .inMemoryAuthentication()
-                .withUser("user")
-                .password(encoder().encode("user"))
-                .roles("USER")
-                .and()
-                .withUser("admin")
-                .password(encoder().encode("admin"))
-                .roles("ADMIN");
+//                auth
+//                .inMemoryAuthentication()
+//                .withUser("user")
+//                .password(encoder().encode("user"))
+//                .roles("USER")
+//                .and()
+//                .withUser("admin")
+//                .password(encoder().encode("admin"))
+//                .roles("ADMIN");
     }
 
     @Bean

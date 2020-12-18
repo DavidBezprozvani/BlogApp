@@ -1,6 +1,6 @@
 package com.codeacademy.blogs.model;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Entity;
@@ -8,8 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Data
+@Getter
+@Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role implements GrantedAuthority {
 
     @Id
@@ -17,6 +20,7 @@ public class Role implements GrantedAuthority {
     private Long id;
 
     private String roleName;
+
 
     @Override
     public String getAuthority() {

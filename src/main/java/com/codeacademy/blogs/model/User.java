@@ -1,8 +1,6 @@
 package com.codeacademy.blogs.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,9 +14,10 @@ import java.util.Set;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @ToString
-@Table(name = "Users")
 public class User implements UserDetails {
 
     @Id
@@ -33,10 +32,14 @@ public class User implements UserDetails {
     @Size(min = 3)
     private String password;
 
-    @NotBlank
-    @Email(regexp = ".+@.+\\..+")
-    @Column
-    private String email;
+//    @Transient
+//    private String repeatedPassword;
+
+//    @NotBlank
+//    @Email
+////            (regexp = ".+@.+\\..+")
+//    @Column
+//    private String email;
 
     @NotBlank
     @Column(name = "first_name")
@@ -46,6 +49,7 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column
     private String avatar;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User List</title>
 
-    <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/static/css/global.css}" />
     <script type="text/javascript" th:src="@{/js/script.js}"></script>
 </head>
 <body>
 <div th:replace="fragments/main :: menu"></div>
-
-<div th:replace="fragments/main :: menu"></div>
-<div th:replace="fragments/main :: toolbar (url='/user/new', text='Pridėti naują vartotoją')"></div>
+<div th:replace="fragments/main :: toolbar (url='/public/user/new', text='Pridėti naują vartotoją')"></div>
 <div class="container">
     <th:block th:if="${usersPage.empty}">
         <p>Jūs neturite pridėtų vartotoju!</p>
@@ -21,22 +19,32 @@
     <th:block th:if="${not usersPage.empty}">
         <table class="table">
             <tr>
-                <th>Username</th>
-                <th>Name</th>
-                <th>Surname</th>
+                <th th:text="#{table.username}">Username</th>
+                <th th:text="#{table.name}">Name</th>
+                <th th:text="#{table.surname}">Surname</th>
+                <th th:text="#{table.profile}">Check profile</th>
+                <th sec:authorize="isAuthenticated()" th:text="#{table.edit}">Edit</th>
             </tr>
             <tr th:each="user : ${usersPage}">
-                <td th:text="${user.username}" />
-                <td th:text="${user.firstName}" />
-                <td th:text="${user.lastName}" />
-                <td><a th:href="@{/user/update/{id}(id=${user.id})}"><button class="btn btn-bg bg-secondary text-white">Koreguoti</button></a></td>
-                <td><a th:href="@{/user/{id}(id=${user.id})}"><button class="btn btn-bg bg-primary text-white">Profilis</button></a></td>
+                <td th:text="${user.username}"/>
+                <td th:text="${user.firstName}"/>
+                <td th:text="${user.lastName}"/>
+                <td>
+                    <a th:href="@{/public/user/{id}(id=${user.id})}">
+                        <button class="btn btn-bg bg-secondary text-white" th:text="#{table.profile}">Profilis</button>
+                    </a>
+                </td>
+                <td>
+                    <a  sec:authorize="isAuthenticated()"  th:href="@{/public/user/update/{id}(id=${user.id})}">
+                        <button class="btn btn-bg bg-secondary text-white" th:text="#{table.edit}">Koreguoti</button>
+                    </a>
+                </td>
             </tr>
         </table>
         <div th:include="fragments/main :: pagination" th:object="${usersPage}"></div>
     </th:block>
 
-<div th:replace="fragments/main :: footer"></div>
+    <div th:replace="fragments/main :: footer"></div>
 </div>
 </body>
 </html>

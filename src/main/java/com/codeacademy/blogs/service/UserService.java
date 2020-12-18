@@ -1,29 +1,28 @@
 package com.codeacademy.blogs.service;
 
-import com.codeacademy.blogs.config.SecurityConfig;
 import com.codeacademy.blogs.exception.UserNotFoundException;
+import com.codeacademy.blogs.model.Role;
 import com.codeacademy.blogs.model.User;
 import com.codeacademy.blogs.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Set;
 
 
 @Service
 public class UserService implements UserDetailsService {
     private UserRepository userRepository;
-    private SecurityConfig securityConfig;
-
-    //TODO: padaryti user service
+    private PasswordEncoder passwordEncoder;
 
 
-    public UserService(UserRepository userRepository, SecurityConfig securityConfig) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.securityConfig = securityConfig;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // get all users
@@ -34,23 +33,6 @@ public class UserService implements UserDetailsService {
     // get user by id
     public User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-    }
-
-    // Load User by username
-    @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(username));
-    }
-
-    // Find by email // GAL NEREIKALINGI??
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
-    }
-
-    // Find by username // GAL NEREIKALINGI??
-    public User findByUsername(String email) {
-        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
 
@@ -64,21 +46,18 @@ public class UserService implements UserDetailsService {
         userRepository.save(existingUser);
     }
 
-    // add user by admin
+    // add user
     public User addUser(User user) {
-        user.setUsername(user.getUsername());
-        user.setPassword(securityConfig.encoder().encode(user.getPassword()));
-        user.setEmail(user.getEmail());
-        user.setFirstName(user.getFirstName());
-        user.setLastName(user.getLastName());
-        user.setAvatar(user.getAvatar());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Set.of(new Role(2L, "USER")));
         return userRepository.save(user);
     }
 
-    // remove user for admin
-    @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable long id) {
-        userRepository.deleteById(id);
-        return "redirect:/user";
+    // Load User by username
+    @Override
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
     }
+
 }

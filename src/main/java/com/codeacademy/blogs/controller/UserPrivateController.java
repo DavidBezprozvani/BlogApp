@@ -37,14 +37,12 @@ public class UserPrivateController {
     }
 
     @GetMapping("/update/{id}")
-    @PreAuthorize("isAuthenticated()")
     public String getUpdateUserForm(Model model, @PathVariable Long id, @AuthenticationPrincipal User user) {
         model.addAttribute("user", userService.getUserById(id));
         return "user/edit-user";
     }
 
     @PostMapping("/{id}")
-    @PreAuthorize("isAuthenticated()")
     public String updateUser(@PathVariable Long id, BindingResult bindingResult, @ModelAttribute("user") @AuthenticationPrincipal User user) {
         if (bindingResult.hasErrors()) {
             return "user/edit-user";
@@ -54,7 +52,7 @@ public class UserPrivateController {
     }
 
     @GetMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
         return "redirect:/private/user";

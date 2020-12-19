@@ -19,13 +19,10 @@ import javax.validation.Valid;
 public class UserController {
 
     private UserService userService;
-    private UserRepository userRepository;
 
-    public UserController(UserService userService, UserRepository userRepository) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
-
 
     @GetMapping("/registration")
     public String getRegistrationForm(Model model) {
@@ -41,5 +38,4 @@ public class UserController {
         userService.addUser(user);
         return "redirect:/public/index";
     }
-
 }

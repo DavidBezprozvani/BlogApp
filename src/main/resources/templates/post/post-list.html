@@ -3,38 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>User List</title>
-
-    <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/static/css/global.css}" />
-    <script type="text/javascript" th:src="@{/js/script.js}"></script>
 </head>
 <body>
-<div th:replace="fragments/main :: menu"></div>
+<div th:replace="fragments/navbar :: menu"></div>
 
-<div th:replace="fragments/main :: menu"></div>
-<div th:replace="fragments/main :: toolbar (url='/post/new', text='Pridėti naują blogą')"></div>
 <div class="container">
-    <th:block th:if="${postsPage.empty}">
-        <p>Jūs neturite pridėtų blogų!</p>
-    </th:block>
 
-    <th:block th:if="${not postsPage.empty}">
-        <table class="table">
-            <tr>
-                <th>Username</th>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr th:each="post : ${postsPage}">
-                <td th:text="${post.title}}" />
-                <td><a th:href="@{/post/update/{id}(id=${post.id})}"><button class="btn btn-bg bg-secondary text-white">Koreguoti</button></a></td>
-                <td><a th:href="@{/post/{id}(id=${post.id})}"><button class="btn btn-bg bg-primary text-white">Profilis</button></a></td>
-            </tr>
-        </table>
-        <div th:include="fragments/main :: pagination" th:object="${postsPage}}"></div>
-    </th:block>
+    <div class="jumbotron">
+        <h1 th:text="${user.username} + '\'s Blo'">Username Blog</h1>
+        <div class="starter-template panel" th:each="post : ${posts}">
+        <div class="panel-heading">
+            <h1><a th:text="${post.title}" th:href="@{'/post/' + ${post.id}}">Title</a></h1>
+            <div th:text="'Created: ' + ${post.createdOn} + ' by '">
+                Created by
+            </div>
+<!--            <div><a th:text="${post.user.username}" th:href="@{'/blog/' + ${post.user.username}}">User</a>-->
+<!--            </div>-->
+<!--        </div>-->
+        <h3 class="panel-body" th:text="${post.body}">Body</h3>
+        <br></br>
+    </div>
+    </div>
 
-    <div th:replace="fragments/main :: footer"></div>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div th:replace="fragments/buttons :: adminButton (url='/post/new', text='Pridėti naują blogą')"></div>-->
+<!--<div class="container">-->
+<!--    <th:block th:if="${postsPage.empty}">-->
+<!--        <p>Jūs neturite pridėtų blogų!</p>-->
+<!--    </th:block>-->
+
+<!--    </th:block>-->
+
+<!--    <th:block th:if="${not postsPage.empty}">-->
+<!--        <table class="table">-->
+<!--            <tr>-->
+<!--                <th>Username</th>-->
+<!--                <th></th>-->
+<!--                <th></th>-->
+<!--            </tr>-->
+<!--            <tr th:each="post : ${postsPage}">-->
+<!--                <td th:text="${post.title}"/>-->
+<!--                <td><a th:href="@{/public/post/update/{id}(id=${post.id})}">-->
+<!--                    <button class="btn btn-bg bg-secondary text-white">Koreguoti</button>-->
+<!--                </a>-->
+<!--                </td>-->
+<!--                <td><a th:href="@{/public/post/{id}(id=${post.id})}">-->
+<!--                    <button class="btn btn-bg bg-primary text-white">Ieiti</button>-->
+<!--                </a></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--        <div th:include="fragments/pagination :: pagination" th:object="${postsPage}"></div>-->
+<!--    </th:block>-->
+
+<!--    <div th:replace="fragments/footer :: footer"></div>-->
+<!--</div>-->
 </body>
 </html>

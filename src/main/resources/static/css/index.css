@@ -1,0 +1,27 @@
+#wrapper {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background-color: red;
+    background-size: cover;
+    position: relative;
+    color: red;
+}
+
+#wrapper .container {
+    padding-top: 80px;
+    background-color: red;
+}
+
+#wrapper h1 {
+    margin: 0;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 72px;
+    font-family: "Poppins", sans-serif;
+}
+
+#wrapper h3 {
+    margin: 10px 0 0 0;
+    font-size: 22px;
+}

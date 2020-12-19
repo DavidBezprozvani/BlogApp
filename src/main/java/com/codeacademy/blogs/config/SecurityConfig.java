@@ -33,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/h2/**", "/login", "/", "/public/**").permitAll()
-                .antMatchers("/private/**").authenticated()
+                .antMatchers( "/login", "/", "/public/**", "/static/**").permitAll()
+                .antMatchers("/h2/**", "/private/**").authenticated()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -59,8 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurity) {
 //        webSecurity.ignoring().antMatchers("/**"); // isjungia security
+        webSecurity.ignoring().antMatchers("/static/**");
         webSecurity.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-//        webSecurity.ignoring().antMatchers("/error");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.codeacademy.blogs.service;
 
+import com.codeacademy.blogs.exception.PostNotFoundException;
 import com.codeacademy.blogs.exception.UserNotFoundException;
 import com.codeacademy.blogs.model.Post;
 import com.codeacademy.blogs.model.User;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,21 +23,28 @@ public class PostService {
     }
 
     // edit post
+    public void editPost(Long id, Post newPost) {
+        Post existingPost = getPostById(id);
+        // FIXME: Use mapper or BeanUtil.
+        existingPost.setTitle(newPost.getTitle());
+        existingPost.setBody(newPost.getBody());
+        existingPost.setUpdatedOn(LocalDateTime.now());
+        postRepository.save(existingPost);
+    }
 
     // get all posts
-    public Page<Post> getAllPosts(Pageable pageable) {
+    public Page<Post> getAllPageablePosts(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
-    // find post by name keyword
 
-    // find post by user
-    public Optional<Post> getPostByUsername(String username) {
-        return postRepository.findByUsername(username);
+    public List<Post> getAllPosts() {
+      return postRepository.findAll();
     }
 
     public Post getPostById(Long id) {
-        return postRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        return postRepository.findById(id).orElseThrow(PostNotFoundException::new);
     }
 
+    // TODO: make search to find post by keyword and find post by user
 
 }

@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 
@@ -59,6 +60,9 @@ public class User implements UserDetails {
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private Set<Role> roles;
+
+    @OneToMany
+    private List<Comment> comments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

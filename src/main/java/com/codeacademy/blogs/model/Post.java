@@ -12,12 +12,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @ToString
-@Table(name = "Posts")
 public class Post {
 
     @Id
@@ -45,11 +45,9 @@ public class Post {
     @Column
     private String username;
 
-    @ManyToOne
-    @JoinTable
-            (name = "Posts_Users",
-                    joinColumns = {@JoinColumn(name = "user_id")},
-                    inverseJoinColumns = {@JoinColumn(name = "post_id")})
-    @NotNull
+    @OneToMany
+    private List<Comment> comments;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
 }

@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+
+
+<!--Button whicn only shows up to admin-->
+<div th:fragment="adminButton (url, text)" th:assert="${!#strings.isEmpty(url) and !#strings.isEmpty(text)}"
+     sec:authorize="hasRole('ADMIN')"
+     class="container d-flex justify-content-end">
+    <a th:href="*{url}">
+        <button class="btn btn-bg bg-primary text-white" th:text="*{text}"></button>
+    </a>
+</div>

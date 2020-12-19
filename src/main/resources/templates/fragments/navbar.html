@@ -1,8 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<link rel="stylesheet" type="text/css" media="all"
-      th:href="@{/static/css/header.css}" />
 
+<style>
+    .language-selection {
+        display: flex;
+
+    }
+</style>
 
 <!--NAVBAR-->
 <nav th:fragment="menu" class="navbar sticky-top navbar-expand-lg navbar-light bg-light mb-3">
@@ -22,7 +26,8 @@
                 th:classappend="${#httpServletRequest.getRequestURI().contains('/index') ? 'active':''}">
                 <a th:text="#{menu.home}" class="nav-link" href="/public/index">Home</a>
             </li>
-            <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI().contains('/post') ? 'active':''}">
+            <li class="nav-item"
+                th:classappend="${#httpServletRequest.getRequestURI().contains('/post') ? 'active':''}">
                 <a th:text="#{menu.blogs}" class="nav-link" href="/public/post">Blogs</a>
             </li>
             <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/about' ? 'active':''}">
@@ -38,6 +43,13 @@
             </li>
         </ul>
 
+        <div class="language-selection" style="margin-right: 40px">
+            <a class="navbar-text" th:href="@{?lang=en}">EN</a>
+<!--            <img th:src="@{/static/img/united-kingdom.png}">-->
+            <span>|</span>
+            <a class="navbar-text" th:href="@{?lang=lt}">LT</a>
+        </div>
+
         <form class="inline-form" th:action="@{/logout}" method="post">
         <span class="navbar-text">
             <span th:text="#{welcome}">Welcome</span>
@@ -49,40 +61,13 @@
                 Logout
             </button>
         </form>
-            <!--Only shows up for guest-->
+        <!--Only shows up for guest-->
         <form class="inline-form" th:action="@{/user/login}" sec:authorize="!isAuthenticated()" method="get">
-        <button th:text="#{sign.in}" class="btn btn-outline-dark" type="submit" style="margin-left: 10px"> Sign in
-        </button>
+            <button th:text="#{sign.in}" class="btn btn-outline-dark" type="submit" style="margin-left: 10px"> Sign in
+            </button>
         </form>
         <li class="btn" sec:authorize="!isAuthenticated()">
             <a th:text="#{sign.up}" class="btn btn-dark" th:href="@{/public/user/registration}">Users</a>
         </li>
     </div>
 </nav>
-
-<!--Button whicn only shows up to admin-->
-<div th:fragment="toolbar (url, text)" th:assert="${!#strings.isEmpty(url) and !#strings.isEmpty(text)}"
-     sec:authorize="hasRole('ADMIN')"
-     class="container d-flex justify-content-end">
-    <a th:href="*{url}">
-        <button class="btn btn-bg bg-primary text-white" th:text="*{text}"></button>
-    </a>
-</div>
-
-<!--Pagination-->
-<div th:fragment="pagination">
-    <th:block th:each="pageNumber : *{#numbers.sequence(0, totalPages - 1)}">
-        <a th:class="${pageNumber == number ? 'currentPage' : ''}"
-           th:with="order=*{sort.iterator().hasNext() ? sort.iterator().next() : null}"
-           th:href="@{/product(page=${pageNumber}, size=*{size}, sort=${order != null ? (order.property + ',' + order.direction) : ''})}"
-           th:text="${pageNumber + 1}"></a>
-    </th:block>
-    <span th:text="'Viso: ' + *{totalElements}"></span>
-</div>
-
-<!--Footer-->
-<footer th:fragment="footer" class="footer mt-auto py-3" style="position: absolute; bottom: 0;">
-    <div class="container-fluid">
-        <span class="text-muted">Blog application for Code Academy. All rights reserved.</span>
-    </div>
-</footer>

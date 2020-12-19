@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <style>
+        .all-columns {
+            margin: 0;
+            padding: 30px;
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .all-columns > h1, .paragraph {
+            margin: 10px;
+            padding: 5px;
+        }
+
+        .paragraph > h2, p {
+            margin: 4px;
+            font-size: 90%;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/navbar :: menu"></div>
+<article class="all-columns">
+    <h1>About us</h1>
+    <article class="paragraph">
+        <h2>Mission</h2>
+        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+            atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
+            similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+            Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis
+            est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas
+            assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
+            necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum
+            rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
+            perferendis doloribus asperiores repellat.</p>
+    </article>
+    <article class="paragraph">
+        <h2>Vision</h2>
+        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+            atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
+            similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+            Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis
+            est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus</p>
+    </article>
+    <article class="paragraph">
+        <h2>Passion</h2>
+        <p> Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
+            placeat facere possimus</p>
+    </article>
+</article>
+
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

@@ -5,8 +5,8 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body>
-<div th:replace="fragments/main :: menu"></div>
-<div th:replace="fragments/main :: toolbar (url='/public/user', text='Atgal į vartotojų sąrašą')"></div>
+<div th:replace="fragments/navbar :: menu"></div>
+<div th:replace="fragments/buttons :: adminButton (url='/public/user', text='Atgal į vartotojų sąrašą')"></div>
 <div class="container">
     <div class="card" th:object="${user}">
         <div class="card-body">
@@ -25,6 +25,6 @@
         </div>
     </div>
 </div>
-<div th:replace="fragments/main :: footer"></div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

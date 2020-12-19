@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!--Pagination-->
+<div th:fragment="pagination">
+    <th:block th:each="pageNumber : *{#numbers.sequence(0, totalPages - 1)}">
+        <a th:class="${pageNumber == number ? 'currentPage' : ''}"
+           th:with="order=*{sort.iterator().hasNext() ? sort.iterator().next() : null}"
+           th:href="@{/product(page=${pageNumber}, size=*{size}, sort=${order != null ? (order.property + ',' + order.direction) : ''})}"
+           th:text="${pageNumber + 1}"></a>
+    </th:block>
+    <span th:text="'Viso: ' + *{totalElements}"></span>
+</div>

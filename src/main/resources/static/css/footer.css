@@ -1,0 +1,18 @@
+
+.footerWrap {
+    width:100%;
+    position:fixed;
+    bottom: 0;
+}
+.footer {
+    width:400px;
+    margin:auto;
+    background: green;
+}
+.footerContent {
+    float:left;
+    width:100%;
+    padding:20px 0;
+    background: red;
+}
+.footer p {float:left; width:100%; text-align:center; }

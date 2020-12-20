@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -40,7 +42,6 @@ public class PostController {
         model.addAttribute("postsPage", postService.getAllPageablePosts(pageable));
         return "post/post-list";
     }
-
 
 
 //    @GetMapping
@@ -66,12 +67,15 @@ public class PostController {
 
     @PostMapping
 //    @PreAuthorize("hasRole('ADMIN')")
-    public String createNewPost(@ModelAttribute("post") @Valid Post post, BindingResult bindingResult) {
+    public String createNewPost(@ModelAttribute("post") @Valid Post post,
+                                BindingResult bindingResult,
+                                @AuthenticationPrincipal User user) {
         if (bindingResult.hasErrors()) {
             return "post/post-form";
         } else {
+            post.setUsername(user.getUsername());
             postService.addPost(post);
-            return "redirect:/public/post/" + post.getId();
+            return "redirect:/public/post/";
         }
     }
 

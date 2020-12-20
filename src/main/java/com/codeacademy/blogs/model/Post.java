@@ -28,20 +28,18 @@ public class Post {
     @Column
     private String title;
 
-    @NotEmpty
     @Lob
     @Column
     private String body;
 
     @CreationTimestamp
-    @Column(name = "created_on", nullable = false, updatable = false)
+    @Column(name = "created_on")
     private LocalDateTime createdOn;
 
     @UpdateTimestamp
-    @Column(name = "updated_on", nullable = false, updatable = false)
+    @Column(name = "updated_on")
     private LocalDateTime updatedOn;
 
-    @NotBlank
     @Column
     private String username;
 

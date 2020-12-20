@@ -21,6 +21,10 @@
             padding-top: 100px;
         }
 
+        .row {
+            justify-content: center;
+        }
+
         #wrapper h1 {
             margin: 0;
             font-size: 56px;
@@ -28,7 +32,7 @@
             line-height: 72px;
         }
 
-        #wrapper h3 {
+        #wrapper h2 {
             margin: 40px 0 10px 0;
             font-size: 22px;
         }
@@ -44,21 +48,21 @@
 
 <div th:replace="fragments/navbar :: menu"></div>
 
-<section id="wrapper" class="d-flex align-items-center">
-    <div class="container position-relative">
-        <div class="row justify-content-center">
+<section id="wrapper" >
+    <div class="container">
+        <div class="row">
             <div class="col-xl-7 col-lg-9 text-center">
                 <div id="welcome-message">
                     <h1 th:text="#{welcome.message}">Hello world</h1>
                 </div>
                 <div id="choose-text">
-                    <h3 th:text="#{index.choose}"></h3>
+                    <h2 th:text="#{index.choose}"></h2>
                 </div>
             </div>
         </div>
         <div>
             <div class="choosing-buttons">
-                <a class="btn btn-dark" th:text="#{index.get.list}" th:href="@{/}"> </a>
+                <a class="btn btn-dark" th:text="#{index.get.list}" th:href="@{/public/post}"> </a>
                 <a class="btn btn-outline-dark" th:text="#{index.get.about}" th:href="@{/public/about}"></a>
             </div>
         </div>

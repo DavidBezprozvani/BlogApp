@@ -18,7 +18,7 @@
 <div th:replace="fragments/navbar :: menu"></div>
 
 
-<h1 th:text="#{login}" class="title-name">Login</h1>
+<h1 th:text="#{login}" class="title-name" style="padding-top: 50px;">Login</h1>
 <div th:if="${param.error}">
     <div class="alert alert-danger">Invalid username and password.</div>
     </div>
@@ -32,8 +32,8 @@
     <div class="input-field">
         <input type="password" name="password" placeholder="Password"/>
     </div>
-    <div class="input-field">
-    <input type="submit" value="Log in" />
+    <div class="input-field" style="margin-top: 10px">
+    <input class="btn btn-dark margin top10" type="submit" value="Log in" />
     </div>
 </form>
 <div th:replace="fragments/footer :: footer"></div>

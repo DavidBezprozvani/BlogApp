@@ -1,10 +1,28 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Post form</title>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
+<div th:replace="fragments/navbar :: menu"></div>
 
+<form th:action="@{/public/post}" method="post" th:object="${post}">
+    <div class="container">
+        <h1 th:text="#{add.new.blog}">Create mew</h1>
+        <label for="tfTitle" th:text="#{blog.title}">Title</label>
+        <input class="form-control" type="text" id="tfTitle" th:field="*{title}"><br/>
+        <label for="tfBody" th:text="#{blog.body}">Body</label>
+        <textarea class="form-control" type="text" id="tfBody" th:field="*{body}" rows="5" cols="30"></textarea><br/>
+        <button class="btn btn-dark" type="submit" value="Submit" th:text="#{blog.submit}">Skelbti</button>
+        <a th:href="@{/public/post}" class="btn btn-outline-secondary" th:text="#{blog.cancel}">Cancel</a>
+    </div>
+</form>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -13,13 +13,20 @@ INSERT INTO USER_ROLES (user_id, role_id) VALUES
 (1, 2),
 (2, 2);
 
-INSERT INTO POST (id, title, body, created_on, updated_on, username) VALUES
-(1, 'Delfi comments review', 'Hello world and good bye', '2020-01-01 14:14', '2020-08-02 18:14', 'admin'),
-(2, 'Facebook comments review', 'Goooooooood bye, gooooood bye, gooood bye', '2020-02-02 15:15', '2020-08-02 04:20', 'admin');
+INSERT INTO POST (id, title, body, created_on, updated_on, username, user_id) VALUES
+(1, 'Vaccines will save ze world',
+'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididuntut labore et dolore magna aliqua. Montes nascetur ridiculus mus mauris vitae. Id aliquet risus feugiat in ante metus. At quis risus sed vulputate odio ut. Risus in hendrerit gravida rutrum quisque non tellus orci. Vitae purus faucibus ornare suspendisse sed nisi lacus. In mollis nunc sed id semper risus in hendrerit. Enim neque volutpat ac tincidunt vitae semper quis lectus. Enim sed faucibus turpis in eu mi bibendum neque. Adipiscing tristique risus nec feugiat in. Neque aliquam vestibulum morbi blandit cursus risus at ultrices. Nulla aliquet enim tortor at auctor. Pellentesque pulvinar pellentesque habitant morbi tristique. Cras semper auctor neque vitae. Sit amet consectetur adipiscing elit ut aliquam purus sit.',
+'2020-01-01 14:14', '2020-08-02 18:14', 'admin', 1),
+(2, 'Blog app is ze best',
+ 'Pulvinar etiam non quam lacus suspendisse faucibus. Bibendum arcu vitae elementum curabitur. Lobortis mattis aliquam faucibus purus in massa tempor nec feugiat. Habitant morbi tristique senectus et netus et malesuada fames. Leo duis ut diam quam. Risus nullam eget felis eget nunc. Diam sit amet nisl suscipit adipiscing bibendum. At ultrices mi tempus imperdiet nulla. In nisl nisi scelerisque eu ultrices vitae auctor. Cras ornare arcu dui vivamus arcu felis bibendum. Diam sollicitudin tempor id eu nisl nunc mi ipsum faucibus. Lacus suspendisse faucibus interdum posuere lorem. Risus pretium quam vulputate dignissim. Gravida cum sociis natoque penatibus et magnis. Justo nec ultrices dui sapien eget mi proin sed libero.',
+'2020-02-02 15:15', '2020-08-02 04:20', 'admin', 1),
+(3, 'Hello world is best app',
+ 'Pulvinar etiam non quam lacus suspendisse faucibus. Bibendum arcu vitae elementum curabitur. Lobortis mattis aliquam faucibus purus in massa tempor nec feugiat. Habitant morbi tristique senectus et netus et malesuada fames. Leo duis ut diam quam. Risus nullam eget felis eget nunc. Diam sit amet nisl suscipit adipiscing bibendum. At ultrices mi tempus imperdiet nulla. In nisl nisi scelerisque eu ultrices vitae auctor. Cras ornare arcu dui vivamus arcu felis bibendum. Diam sollicitudin tempor id eu nisl nunc mi ipsum faucibus. Lacus suspendisse faucibus interdum posuere lorem. Risus pretium quam vulputate dignissim. Gravida cum sociis natoque penatibus et magnis. Justo nec ultrices dui sapien eget mi proin sed libero.',
+ '2020-12-02 15:15', '2020-12-03 04:20', 'admin', 1);
 
 INSERT INTO COMMENTS (id, body, created_on, updated_on, post_id, user_id) VALUES
 (1, 'Kill yourself!', '2020-01-02 15:15', '2020-03-02 14:14', 1, 3),
-(2, 'Aš nesivakcinuosiu, nes FB komentaruose moteris su gėlių profilio nuotrauka, mane įtikino, kad daktarai meluoja', '2020-01-02 15:15', '2020-03-02 14:14', 1, 3),
+(2, 'Aš nesivakcinuosiu, nes FB komentaruose moteris su gėlių profilio nuotrauka, mane įtikino, kad daktarai meluoja', '2020-01-02 15:15', '2020-03-02 14:14', 1, 4),
 (3, 'Šitas appsas tragiškas, nes lanzbergių klanas sunaikino kolūkius', '2020-04-20 12:15', '2020-06-12 13:01', 1, 4),
 (4, 'MS teams lagina, nes Bilas Geitsas naudoja jūsų kompų resursus gaminti čipus vakcinacijai', '2020-01-13 15:15', '2020-05-02 14:14', 2, 2),
 (5, 'Donald Trump will fight deepstate and will set free all child slaves from pentagon', '2020-01-02 15:15', '2020-03-02 14:14', 2, 4);

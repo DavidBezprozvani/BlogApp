@@ -37,7 +37,7 @@ public class UserPrivateController {
     }
 
     @GetMapping("/update/{id}")
-    public String getUpdateUserForm(Model model, @PathVariable Long id, @AuthenticationPrincipal User user) {
+    public String getUpdateUserForm(Model model, @PathVariable Long id) {
         model.addAttribute("user", userService.getUserById(id));
         return "user/edit-user";
     }

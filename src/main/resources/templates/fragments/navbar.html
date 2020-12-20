@@ -30,8 +30,9 @@
                 th:classappend="${#httpServletRequest.getRequestURI().contains('/post') ? 'active':''}">
                 <a th:text="#{menu.blogs}" class="nav-link" href="/public/post">Blogs</a>
             </li>
-            <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/about' ? 'active':''}">
-                <a th:text="#{menu.about}" class="nav-link" href="/public/about">About blogger</a>
+            <li class="nav-item"
+                th:classappend="${#httpServletRequest.getRequestURI() == '/about' ? 'active':''}">
+                <a th:text="#{menu.about}" class="nav-link" href="/public/about">About</a>
             </li>
             <li class="nav-item" sec:authorize="hasRole('ADMIN')"
                 th:classappend="${#httpServletRequest.getRequestURI().contains('/user')  ? 'active':''}">
@@ -45,7 +46,6 @@
 
         <div class="language-selection" style="margin-right: 40px">
             <a class="navbar-text" th:href="@{?lang=en}">EN</a>
-<!--            <img th:src="@{/static/img/united-kingdom.png}">-->
             <span>|</span>
             <a class="navbar-text" th:href="@{?lang=lt}">LT</a>
         </div>

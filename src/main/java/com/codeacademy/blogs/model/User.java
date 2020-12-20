@@ -64,6 +64,9 @@ public class User implements UserDetails {
     @OneToMany
     private List<Comment> comments;
 
+    @OneToMany
+    private List<Post> posts;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

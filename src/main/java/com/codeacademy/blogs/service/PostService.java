@@ -17,6 +17,10 @@ import java.util.Optional;
 public class PostService {
     private PostRepository postRepository;
 
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
+
     // add post
     public Post addPost(Post post) {
         return postRepository.save(post);

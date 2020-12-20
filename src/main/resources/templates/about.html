@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>About</title>
     <style>
-        .all-columns {
+
+        .all-paragraphs {
             margin: 0;
             padding: 30px;
             width: 100%;
@@ -13,7 +14,7 @@
             text-align: center;
         }
 
-        .all-columns > h1, .paragraph {
+        .all-paragraphs > h1, .paragraph {
             margin: 10px;
             padding: 5px;
         }
@@ -25,8 +26,8 @@
     </style>
 </head>
 <body>
-<div th:replace="fragments/navbar :: menu"></div>
-<article class="all-columns">
+<div class="container" th:replace="fragments/navbar :: menu"></div>
+<article class="all-paragraphs">
     <h1>About us</h1>
     <article class="paragraph">
         <h2>Mission</h2>

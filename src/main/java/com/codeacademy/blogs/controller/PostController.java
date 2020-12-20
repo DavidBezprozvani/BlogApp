@@ -35,20 +35,20 @@ public class PostController {
 
 
     //get all posts
-//    @GetMapping
-//    public String getAllPageablePosts(@PageableDefault(size = 5) Pageable pageable, Model model) {
-//        model.addAttribute("postsPage", postService.getAllPosts(pageable));
-//        return "post/post-list";
-//    }
-
-
-
     @GetMapping
-    public String getAllPosts(Model model) {
-        List<Post> posts = postService.getAllPosts();
-        model.addAttribute("posts", posts);
+    public String getAllPageablePosts(@PageableDefault(size = 5) Pageable pageable, Model model) {
+        model.addAttribute("postsPage", postService.getAllPageablePosts(pageable));
         return "post/post-list";
     }
+
+
+
+//    @GetMapping
+//    public String getAllPosts(Model model) {
+//        List<Post> posts = postService.getAllPosts();
+//        model.addAttribute("posts", posts);
+//        return "post/post-list";
+//    }
 
     @GetMapping("/{id}")
     public String getSinglePost(@PathVariable Long id, Model model) {
@@ -57,32 +57,38 @@ public class PostController {
     }
 
     //create new post only ADMIN
-    @PostMapping("/new-post")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String createNewPost(@Valid Post post, BindingResult bindingResult) {
+    @GetMapping("/post-form")
+//    @PreAuthorize("hasRole('ADMIN')")
+    public String getCreateNewPostForm(Model model) {
+        model.addAttribute("post", new Post());
+        return "post/post-form";
+    }
 
+    @PostMapping
+//    @PreAuthorize("hasRole('ADMIN')")
+    public String createNewPost(@ModelAttribute("post") @Valid Post post, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "post/post-form";
         } else {
             postService.addPost(post);
-            return "redirect:/blog/" + post.getUser().getUsername();
+            return "redirect:/public/post/" + post.getId();
         }
     }
 
     //edit post only ADMIN
     @GetMapping("/edit/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public String editPost(@PathVariable Long id, Model model) {
         model.addAttribute("post", postService.getPostById(id));
-        return "*/edit-post";
+        return "post/edit-post";
         }
 
     //Delete post only ADMIN
-    @RequestMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/delete/{id}")
+//    @PreAuthorize("hasRole('ADMIN')")
     public String deletePost(@PathVariable Long id) {
         postRepository.deleteById(id);
-        return "*/post-list";
+        return "post/post-list";
     }
 
     @PostMapping("/comment")
@@ -92,6 +98,6 @@ public class PostController {
         comment.setPost(post);
         comment.setUser(user);
         commentService.save(comment);
-        return "redirect:/post/" + comment.getPost().getId() + "/comment";
+        return "redirect:/public/post/" + comment.getPost().getId() + "/comment";
     }
 }

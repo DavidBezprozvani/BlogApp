@@ -13,12 +13,9 @@ import java.util.List;
 @RequestMapping
 public class IndexController{
 
-    private PostRepository postRepository;
 
     @RequestMapping("public/index")
-    public String index(Model model) {
-//        List<Post> posts = postRepository.findAll();
-//        model.addAttribute("posts", posts);
+    public String index() {
         return "index";
     }
 }

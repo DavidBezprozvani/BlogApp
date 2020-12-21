@@ -31,7 +31,7 @@
                 <a th:text="#{menu.blogs}" class="nav-link" href="/public/post">Blogs</a>
             </li>
             <li class="nav-item"
-                th:classappend="${#httpServletRequest.getRequestURI() == '/about' ? 'active':''}">
+                th:classappend="${#httpServletRequest.getRequestURI().contains('/about') ? 'active':''}">
                 <a th:text="#{menu.about}" class="nav-link" href="/public/about">About</a>
             </li>
             <li class="nav-item" sec:authorize="hasRole('ADMIN')"

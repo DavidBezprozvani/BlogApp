@@ -25,11 +25,11 @@ INSERT INTO POST (id, title, body, created_on, updated_on, username, user_id) VA
  '2020-12-02 15:15', '2020-12-03 04:20', 'admin', 1);
 
 INSERT INTO COMMENTS (id, body, created_on, updated_on, post_id, user_id) VALUES
-(1, 'Kill yourself!', '2020-01-02 15:15', '2020-03-02 14:14', 1, 3),
+(1, 'Tikiuos gausiu teigiamą!', '2020-01-02 15:15', '2020-03-02 14:14', 2, 3),
 (2, 'Aš nesivakcinuosiu, nes FB komentaruose moteris su gėlių profilio nuotrauka, mane įtikino, kad daktarai meluoja', '2020-01-02 15:15', '2020-03-02 14:14', 1, 4),
 (3, 'Šitas appsas tragiškas, nes lanzbergių klanas sunaikino kolūkius', '2020-04-20 12:15', '2020-06-12 13:01', 1, 4),
 (4, 'MS teams lagina, nes Bilas Geitsas naudoja jūsų kompų resursus gaminti čipus vakcinacijai', '2020-01-13 15:15', '2020-05-02 14:14', 2, 2),
-(5, 'Donald Trump will fight deepstate and will set free all child slaves from pentagon', '2020-01-02 15:15', '2020-03-02 14:14', 2, 4);
+(5, 'Delete this app!', '2020-01-02 15:15', '2020-03-02 14:14', 2, 4);
 
 INSERT INTO POST_COMMENTS(post_id, comments_id) VALUES
 (1, 1),

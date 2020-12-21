@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Comments</title>
+
+</head>
+<body>
+<div th:replace="fragments/navbar :: menu"></div>
+
+<div class="container">
+    <th:block th:if="${not commentsPage.empty}">
+        <table class="table">
+
+            <tr th:each="comment : ${commentsPage}" >
+<!--                th:if="${comment.post.id} == ${currentPost.id}"-->
+                <td th:text="${comment.user.username}"></td>
+                <td th:text="${comment.body}"/>
+            </tr>
+        </table>
+        <div th:include="fragments/pagination :: pagination" th:object="${commentsPage}"></div>
+    </th:block>
+
+<!--    <div id="comments" class="col" th:each="comment : ${commentsPage}">-->
+<!--        <div><strong><a th:text="${comment.user.username} + ':'">User</a></strong></div>-->
+<!--        <p th:text="${comment.body}">comment text</p>-->
+<!--    </div>-->
+
+    <div id="comment-box" sec:authorize="isAuthenticated()" class="row">
+        <form id="comment-form" method="post">
+                <textarea class="col-md-12" placeholder="Comment" name="comment"
+                          rows="3" cols="40"></textarea>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <div class="col">
+                <button class="btn btn-bg bg-secondary text-white" type="submit">Comment</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

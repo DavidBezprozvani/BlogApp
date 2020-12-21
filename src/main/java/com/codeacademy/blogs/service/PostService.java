@@ -2,6 +2,7 @@ package com.codeacademy.blogs.service;
 
 import com.codeacademy.blogs.exception.PostNotFoundException;
 import com.codeacademy.blogs.exception.UserNotFoundException;
+import com.codeacademy.blogs.model.Comment;
 import com.codeacademy.blogs.model.Post;
 import com.codeacademy.blogs.model.User;
 import com.codeacademy.blogs.repository.PostRepository;
@@ -21,33 +22,27 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    // add post
-    public Post addPost(Post post) {
-        return postRepository.save(post);
-    }
-
-    // edit post
-    public void editPost(Long id, Post newPost) {
-        Post existingPost = getPostById(id);
-        // FIXME: Use mapper or BeanUtil.
-        existingPost.setTitle(newPost.getTitle());
-        existingPost.setBody(newPost.getBody());
-        existingPost.setUpdatedOn(LocalDateTime.now());
-        postRepository.save(existingPost);
-    }
-
-    // get all posts
     public Page<Post> getAllPageablePosts(Pageable pageable) {
         return postRepository.findAll(pageable);
-    }
-
-    public List<Post> getAllPosts() {
-      return postRepository.findAll();
     }
 
     public Post getPostById(Long id) {
         return postRepository.findById(id).orElseThrow(PostNotFoundException::new);
     }
+
+    public Post addPost(Post post) {
+        return postRepository.save(post);
+    }
+
+    public Post editPost(Post postFromModel) {
+        Post postToEdit = postRepository.getOne(postFromModel.getId());
+        postToEdit.setTitle(postFromModel.getTitle());
+        postToEdit.setBody(postFromModel.getBody());
+        return postRepository.save(postToEdit);
+    }
+
+
+
 
     // TODO: make search to find post by keyword and find post by user
 

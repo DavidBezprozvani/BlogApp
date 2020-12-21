@@ -42,8 +42,10 @@
                     </a>
                 </td>
                 <td th:text="${post.createdOn}"/>
-<!--                <td th:text="${post.updatedOn}"/>-->
-                <td th:text="${#dates.format(post.updatedOn,'dd MMMM yyyy')}"/>
+                <td th:text="${post.createdOn.equals(post.updatedOn)} ? 'New' : ${post.updatedOn}"/>
+
+                <!--TODO: Nepavyksta saugoti suformatavus-->
+                <!--<td th:text="${#dates.format(post.updatedOn,'dd MMMM yyyy')}"/>-->
                 <td th:text="${post.username}"/>
                 <td>
                     <a sec:authorize="hasRole('ADMIN')" th:href="@{/public/post/edit/{id}(id=${post.id})}">

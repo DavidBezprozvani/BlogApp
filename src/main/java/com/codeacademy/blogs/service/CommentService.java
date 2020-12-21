@@ -5,6 +5,8 @@ import com.codeacademy.blogs.exception.PostNotFoundException;
 import com.codeacademy.blogs.model.Comment;
 import com.codeacademy.blogs.model.Post;
 import com.codeacademy.blogs.repository.CommentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,11 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
+    // get all comments paginated
+    public Page<Comment> getAllPageableComments(Pageable pageable) {
+        return commentRepository.findAll(pageable);
+    }
+
     // get comment by id
     public Comment getCommentById(Long id) {
         return commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
@@ -31,7 +38,6 @@ public class CommentService {
     }
 
     // edit comment (any for admin, own for user)
-    @PreAuthorize("hasRole('ADMIN')")
     public void editComment(Long id, Comment newComment) {
             Comment existingComment = getCommentById(id);
             existingComment.setBody(newComment.getBody());
@@ -39,8 +45,15 @@ public class CommentService {
             commentRepository.save(existingComment);
         }
 
+    public Comment editComment(Comment commentFromModel) {
+        Comment commentToEdit = commentRepository.getOne(commentFromModel.getId());
+        commentToEdit.setBody(commentFromModel.getBody());
+        return commentRepository.save(commentToEdit);
+    }
+
     // remove comment (any for admin, own for user)
-
-
+    public void deleteCommentById(Long id) {
+        commentRepository.deleteById(id);
+    }
 
 }

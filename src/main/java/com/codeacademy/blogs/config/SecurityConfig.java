@@ -65,32 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        // Custom user storage
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(encoder());
-
-//      // JDBC user storage
-//        auth.jdbcAuthentication()
-//                .passwordEncoder(encoder())
-//                .dataSource(dataSource)
-//                .usersByUsernameQuery("SELECT username, password, TRUE as enabled FROM User WHERE username = ?")
-//                .authoritiesByUsernameQuery("SELECT u.username, r.role_name FROM Role r " +
-//                        " JOIN User_roles ur ON r.id = ur.role_id " +
-//                        " JOIN User u ON u.id = ur.user_id " +
-//                        " WHERE u.username = ?");
-
-//
-        // In memory user storage
-//                auth
-//                .inMemoryAuthentication()
-//                .withUser("user")
-//                .password(encoder().encode("user"))
-//                .roles("USER")
-//                .and()
-//                .withUser("admin")
-//                .password(encoder().encode("admin"))
-//                .roles("ADMIN");
     }
 
     @Bean

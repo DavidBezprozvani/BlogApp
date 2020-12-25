@@ -12,7 +12,7 @@
 <body>
 <div th:replace="fragments/navbar :: menu"></div>
 
-<form th:action="@{/public/post}" method="post" th:object="${post}">
+<form th:action="@{/public/post/edit/{id}(id=${post.id})}" method="post" th:object="${post}">
     <div class="container">
         <h1 th:text="#{edit.new.blog}">Create mew</h1>
         <label for="tfTitle" th:text="#{blog.title}">Title</label>

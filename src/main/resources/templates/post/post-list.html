@@ -14,8 +14,8 @@
             text-align: center;
         }
 
-        .container h2 {
-            margin-bottom: 20px;
+        .container h1 {
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -23,7 +23,7 @@
 <div th:replace="fragments/navbar :: menu"></div>
 
 <div class="container">
-    <h2 th:text="#{all.blogs.title}">All my Blogs</h2>
+    <h1 th:text="#{all.blogs.title}">All my Blogs</h1>
     <div th:replace="fragments/buttons :: adminButton (url='/public/post/post-form', text='Create new blog')"></div>
     <th:block th:if="${not postsPage.empty}">
         <table class="table">
@@ -41,14 +41,12 @@
                         <p th:text="${post.title}"></p>
                     </a>
                 </td>
-                <td th:text="${post.createdOn}"/>
-                <td th:text="${post.createdOn.equals(post.updatedOn)} ? 'New' : ${post.updatedOn}"/>
-
-                <!--TODO: Nepavyksta saugoti suformatavus-->
-                <!--<td th:text="${#dates.format(post.updatedOn,'dd MMMM yyyy')}"/>-->
+                <td th:text="${#temporals.format(post.createdOn,'yyyy-MM-dd HH:mm')}"/>
+                <td th:text="${post.createdOn.equals(post.updatedOn)} ? '' : ${#temporals.format(post.updatedOn,'yyyy-MM-dd HH:mm')}"/>
                 <td th:text="${post.username}"/>
                 <td>
-                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/public/post/edit/{id}(id=${post.id})}">
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/public/post/edit/' + ${post.id}}">
+<!--                        th:href="@{/public/post/edit/{id}(id=${post.id})}"-->
                         <button class="btn btn-bg bg-secondary text-white" th:text="#{table.edit}">Edit
                         </button>
                     </a>

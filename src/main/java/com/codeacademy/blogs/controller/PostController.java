@@ -35,6 +35,7 @@ public class PostController {
         return "post/post-list";
     }
 
+    //get single post
     @GetMapping("/{id}")
     public String getSinglePost(@PathVariable Long id, Model model) {
         model.addAttribute("post", postService.getPostById(id));
@@ -72,7 +73,7 @@ public class PostController {
     }
 
 
-    @PostMapping("/edit")
+    @PostMapping("/edit/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public String editPost(@ModelAttribute("post") @Valid Post post,
                            BindingResult bindingResult) {
